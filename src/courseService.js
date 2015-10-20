@@ -1,8 +1,8 @@
-var express = require('express'),
-	appointman = require("appointman-js"),
-	moment = require("moment");
+var express = require('express');
+var appointman = require("appointman-js");
+var	moment = require("moment");
 
-exports = module.exports = (function (express, appointman) {
+module.exports = function (config) {
 	var ApmCourseService = appointman.CourseService;
 
 	var CourseService = new express.Router();
@@ -31,7 +31,7 @@ exports = module.exports = (function (express, appointman) {
 	});
 
 	CourseService.get('/plan', function (req, res, next) {
-		var serviceProviderId = req.app.get('config').serviceProviderId;
+		var serviceProviderId = config.serviceProviderId;
 		var from = req.query.from;
 		var days = req.query.days || 6;
 
@@ -43,5 +43,4 @@ exports = module.exports = (function (express, appointman) {
 	});
 
 	return CourseService;
-
-} (express, appointman));
+};
